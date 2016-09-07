@@ -10,9 +10,11 @@ function Heart:ctor(x, y)
 
     local heartBody = cc.PhysicsBody:createCircle(self:getContentSize().width / 2,MATERIAL_DEFAULT)
     self:setPhysicsBody(heartBody)
-    self:getPhysicsBody():setGravityEnable(false)    
+    self:getPhysicsBody():setGravityEnable(false)
     self:setPosition(x, y)
 
 end
+
+
 
 return Heart

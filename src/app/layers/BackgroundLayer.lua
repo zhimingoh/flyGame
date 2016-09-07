@@ -18,9 +18,6 @@ function BackgroundLayer:ctor()
 	local height1 = self.map:getContentSize().height * 9 / 10
 	local height2 = self.map:getContentSize().height * 3 / 16
 
-
-
-
 	local sky = display.newNode()
 	local bodyTop = cc.PhysicsBody:createEdgeSegment(cc.p(0, height1), cc.p(width, height1))
 	sky:setPhysicsBody(bodyTop)
