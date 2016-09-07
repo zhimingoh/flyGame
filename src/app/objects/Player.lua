@@ -45,8 +45,8 @@ end
 
 function Player:drop( ... )
 	-- body
-	transition.stopTarge(self)
-	transition.playAnimationForever(self,display.getAnimationCache("Pdrop"))
+    transition.stopTarget(self)
+    transition.playAnimationForever(self, display.getAnimationCache("drop"))
 
 end
 

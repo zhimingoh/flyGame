@@ -13,6 +13,8 @@ function BackgroundLayer:ctor()
 	self.distanceBg={}
 	self.nearbyBg ={}
 	self.titleMapBg ={}
+	self.bird = {}
+
 	self:createBackgrounds()
 
 	self:addNodeEventListener(cc.NODE_ENTER_FRAME_EVENT, handler(self, self.scrollBackgrounds))
@@ -55,14 +57,38 @@ function BackgroundLayer:addBody(objectGroupName, class )
 		local  x = dict["x"]
 		key = "y"
 		local y = dict["y"]
-		print("循环", i);
 
 		local sprite = class.new(x,y)
 		self.map:addChild(sprite)
+
+        if objectGroupName == "bird" then
+            table.insert(self.bird, sprite)
+        end
 	end
 
 end
 
+function BackgroundLayer:addVelocityToBird()
+
+    local  dict    = nil
+    local  i       = 0
+    local  len     = table.getn(self.bird)
+
+    for i = 0, len-1, 1 do
+        dict = self.bird[i + 1]
+        if dict == nil  then
+            break
+        end
+        local x = dict:getPositionX()
+        if x <= display.width  - self.map:getPositionX() then
+            if dict:getPhysicsBody():getVelocity().x == 0 then
+                dict:getPhysicsBody():setVelocity(cc.p(-70, math.random(-40, 40)))
+            else
+                table.remove(self.bird, i + 1)
+            end
+        end
+    end
+end
 
 function BackgroundLayer:createBackgrounds()
 	-- 创建布幕背景
@@ -138,7 +164,7 @@ function BackgroundLayer:scrollBackgrounds(dt)
 	local x5 = self.map:getPositionX() - 150*dt
 	self.map:setPositionX(x5)
 
-    -- self:addVelocityToBird()
+    self:addVelocityToBird()
 
 end
 

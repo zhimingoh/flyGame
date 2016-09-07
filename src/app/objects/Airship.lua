@@ -1,7 +1,7 @@
 -- @Author: Marte
 -- @Date:   2016-09-07 13:45:35
 -- @Last Modified by:   Marte
--- @Last Modified time: 2016-09-07 14:14:34
+-- @Last Modified time: 2016-09-07 14:45:51
 local Airship = class("Airship", function()
     return display.newSprite("#airship.png")
 end)
@@ -15,10 +15,10 @@ function Airship:ctor(x, y)
     local airshipBody = cc.PhysicsBody:createCircle(airshipSize.width / 2,
         MATERIAL_DEFAULT)
 
-    airshipBody:setCategoryBitmask(0x0100)
-    airshipBody:setContactTestBitmask(0x0100)
-    airshipBody:setCollisionBitmask(0x1000)
-    self:setTag(AIRSHIP_TAG)
+    -- airshipBody:setCategoryBitmask(0x0100)
+    -- airshipBody:setContactTestBitmask(0x0100)
+    -- airshipBody:setCollisionBitmask(0x1000)
+    -- self:setTag(AIRSHIP_TAG)
 
     self:setPhysicsBody(airshipBody)
     self:getPhysicsBody():setGravityEnable(false)
