@@ -1,6 +1,11 @@
+local Heart = require("app.objects.Heart")
+local Airship = require("app.objects.Airship")
+local Bird = require("app.objects.Bird")
+
 BackgroundLayer = class("BackgroundLayer",function()
 	return display.newLayer()
 	end)
+
 
 
 function BackgroundLayer:ctor()
@@ -34,12 +39,12 @@ function BackgroundLayer:startGame()
 	self:addNodeEventListener(cc.NODE_ENTER_FRAME_EVENT, handler(self, self.scrollBackgrounds))
 	self:scheduleUpdate()
 end
-function BackgroundLayer:addHeart( ... )
+function BackgroundLayer:addBody(objectGroupName, class )
 	-- body
-	local objects = self.map:getObjectGroup("heart"):getObjectS()
-	local dict = nil
-	local  i = 0
-	local len = table.getn(objects)
+	local objects = self.map:getObjectGroup(objectGroupName):getObjects()
+    local  dict    = nil
+    local  i       = 0
+    local  len     = table.getn(objects)
 
 	for i =0, len-1 ,1 do
 		dict=objects[i+1]
@@ -52,8 +57,8 @@ function BackgroundLayer:addHeart( ... )
 		local y = dict["y"]
 		print("循环", i);
 
-		local coinSpritel = Heart.new(x,y)
-		self.map:addChild(coinSpritel)
+		local sprite = class.new(x,y)
+		self.map:addChild(sprite)
 	end
 
 end
@@ -97,9 +102,9 @@ function BackgroundLayer:createBackgrounds()
 	:align(display.BOTTOM_LEFT, display.left, display.bottom)
 	:addTo(self, -1)
 
-    -- self:addBody("heart", Heart)
-    -- self:addBody("airship", Airship)
-    -- self:addBody("bird", Bird)
+    self:addBody("heart", Heart)
+    self:addBody("airship", Airship)
+    self:addBody("bird", Bird)
 end
 
 function BackgroundLayer:scrollBackgrounds(dt)
